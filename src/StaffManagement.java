@@ -9,17 +9,22 @@ import java.util.Optional;
 import java.util.Scanner;
 
 public class StaffManagement {
-//    private static Scanner scanner = new Scanner(System.in);
     private static final List<StaffMember> staffList = new ArrayList<>();
 
     private static int idAutoIncrement = 1;
 
     static void insert(Scanner scanner) {
-        System.out.println("\n1. VOLUNTEER");
-        System.out.println("2. SALARIES EMPLOYEE");
-        System.out.println("3. HOURLY EMPLOYEE");
-        System.out.println("4. BACK");
-        System.out.print("CHOOSE AN OPTION TO INSERT : ");
+        Table table = new Table(1, BorderStyle.UNICODE_BOX_WIDE, ShownBorders.SURROUND);
+        table.setColumnWidth(0, 35, 50);
+
+        table.addCell("1. VOLUNTEER", new CellStyle(CellStyle.HorizontalAlign.LEFT));
+        table.addCell("2. SALARIES EMPLOYEE", new CellStyle(CellStyle.HorizontalAlign.LEFT));
+        table.addCell("3. HOURLY EMPLOYEE", new CellStyle(CellStyle.HorizontalAlign.LEFT));
+        table.addCell("4. BACK", new CellStyle(CellStyle.HorizontalAlign.LEFT));
+
+        System.out.println(table.render());
+
+        System.out.print("\nCHOOSE AN OPTION TO INSERT : ");
         int choice = scanner.nextInt();
 
         switch (choice) {
@@ -68,12 +73,16 @@ public class StaffManagement {
 
         Optional<StaffMember> optionalStaffMember = staffList.stream().filter(s -> s.id == id).findFirst();
         if(optionalStaffMember.isPresent()) {
+            Table table = new Table(1, BorderStyle.UNICODE_BOX_WIDE, ShownBorders.SURROUND);
+            table.setColumnWidth(0, 35, 50);
             StaffMember staff = optionalStaffMember.get();
 
-            System.out.println("1. NAME");
-            System.out.println("2. ADDRESS");
-            System.out.println("3. CANCEL");
-            System.out.print("CHOOSE AN OPTION (1-3) TO UPDATE : ");
+            table.addCell("1. NAME", new CellStyle(CellStyle.HorizontalAlign.LEFT));
+            table.addCell("2. ADDRESS", new CellStyle(CellStyle.HorizontalAlign.LEFT));
+            table.addCell("3. CANCEL", new CellStyle(CellStyle.HorizontalAlign.LEFT));
+            System.out.println(table.render());
+
+            System.out.print("\nCHOOSE AN OPTION (1-3) TO UPDATE : ");
             int choice = scanner.nextInt();
             scanner.nextLine();
             switch (choice) {
@@ -86,7 +95,10 @@ public class StaffManagement {
                     staff.address = scanner.nextLine();
                     break;
                 case 3:
+                    System.out.println("=============================");
                     System.out.println("UPDATE CANCELLED..!!! : ");
+                    System.out.println("=============================");
+
                     break;
                 default:
                     System.out.println("Invalid choice..!!");
@@ -176,7 +188,11 @@ public class StaffManagement {
 
         boolean removed = staffList.removeIf(s -> s.id == id);
         if(removed) {
+
+            System.out.println("=============================");
             System.out.println("REMOVED SUCCESSFULLY");
+            System.out.println("=============================");
+
         }else {
                 System.out.println("(ID) NOT FOUND..!!");
         }
