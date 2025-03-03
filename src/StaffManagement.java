@@ -98,15 +98,89 @@ public class StaffManagement {
         }
     }
 
-
-    static void display(Scanner scanner){
+    static void sampleData() {
         staffList.add(new Volunteer(idAutoIncrement++, "KoKoWah", "Phnom Penh"));
         staffList.add(new SalariedEmployee(idAutoIncrement++, "WoEhEh", "Takeo", 300.0, 50.0));
         staffList.add(new HourlySalaryEmployee(idAutoIncrement++, "Ah Loy", "Kampong Som", 50, 10));
-
-        System.out.println("\n======| EMPLOYEE LIST |======");
-        staffList.forEach(staffMember -> System.out.println(staffMember.toString()));
     }
+
+    static void display(Scanner scanner){
+        System.out.println("\n======| EMPLOYEE LIST |======");
+        Table table = new Table(9, BorderStyle.UNICODE_BOX_DOUBLE_BORDER, ShownBorders.ALL);
+        table.setColumnWidth(0, 25,35);
+        table.setColumnWidth(1, 10,15);
+        table.setColumnWidth(2, 15,25);
+        table.setColumnWidth(3, 15,25);
+        table.setColumnWidth(4, 10,15);
+        table.setColumnWidth(5, 10,15);
+        table.setColumnWidth(6, 10,15);
+        table.setColumnWidth(7, 10,15);
+        table.setColumnWidth(8, 10,15);
+
+        table.addCell("TYPE", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("ID", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("NAME", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("ADDRESS", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("SALARY", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("BONUS", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("HOUR", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("RATE", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+        table.addCell("PAYMENT", new CellStyle(CellStyle.HorizontalAlign.CENTER));
+
+
+        staffList.forEach(staffMember -> {
+            if(staffMember instanceof Volunteer) {
+                Volunteer volunteer = (Volunteer) staffMember;
+
+                table.addCell(("VOLUNTEER"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(volunteer.id), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(volunteer.name), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(volunteer.address), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(volunteer.salary), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(("--"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(("--"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(("--"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(volunteer.pay()), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+
+            }else if(staffMember instanceof SalariedEmployee) {
+                SalariedEmployee salariedEmployee = (SalariedEmployee) staffMember;
+
+
+                table.addCell(("SALARIED EMPLOYEE"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(salariedEmployee.id), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(salariedEmployee.name), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(salariedEmployee.address), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(salariedEmployee.salary), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(salariedEmployee.bonus), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(("--"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(("--"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(salariedEmployee.pay()), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+
+            }else {
+                HourlySalaryEmployee hourlyEmployee = (HourlySalaryEmployee) staffMember;
+
+
+                table.addCell(("HOURLY SALARY EMPLOYEE"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(hourlyEmployee.id), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(hourlyEmployee.name), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(hourlyEmployee.address), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(("--"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(("--"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(hourlyEmployee.hoursWorked), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(hourlyEmployee.rate), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+                table.addCell(String.valueOf(hourlyEmployee.pay()), new CellStyle(CellStyle.HorizontalAlign.CENTER));
+            }
+
+//            System.out.println(staffMember.);
+
+
+
+        });
+
+        System.out.println(table.render());
+    }
+
+
     static void remove(Scanner scanner) {
 
     }

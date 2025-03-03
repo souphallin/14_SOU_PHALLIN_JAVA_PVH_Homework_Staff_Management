@@ -2,8 +2,12 @@ import java.util.Scanner;
 
 public class Main extends StaffManagement{
     public static void main(String[] args) {
+
+        sampleData();
         Scanner scanner = new Scanner(System.in);
+
         while (true){
+
             System.out.println("\n=====| STAFF MANAGEMENT SYSTEM |=====");
             System.out.println("|=> 1.INSERT EMPLOYEE");
             System.out.println("|=> 2.UPDATE EMPLOYEE");

@@ -9,6 +9,11 @@ public class Volunteer extends StaffMember{
         return salary = 0.0;  //    return 0 cause volunteer didn't get the salary
     }
 
+    public Double getSalary() {
+        return salary;
+    }
+
+
     public String toString(){
         return "Volunteer = " + super.toString() + " | Salary : " + pay();
     }
