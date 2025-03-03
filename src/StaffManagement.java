@@ -3,12 +3,10 @@ import org.nocrala.tools.texttablefmt.CellStyle;
 import org.nocrala.tools.texttablefmt.ShownBorders;
 import org.nocrala.tools.texttablefmt.Table;
 
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 public class StaffManagement {
 //    private static Scanner scanner = new Scanner(System.in);
@@ -127,7 +125,6 @@ public class StaffManagement {
         table.addCell("RATE", new CellStyle(CellStyle.HorizontalAlign.CENTER));
         table.addCell("PAYMENT", new CellStyle(CellStyle.HorizontalAlign.CENTER));
 
-
         staffList.forEach(staffMember -> {
             if(staffMember instanceof Volunteer) {
                 Volunteer volunteer = (Volunteer) staffMember;
@@ -145,7 +142,6 @@ public class StaffManagement {
             }else if(staffMember instanceof SalariedEmployee) {
                 SalariedEmployee salariedEmployee = (SalariedEmployee) staffMember;
 
-
                 table.addCell(("SALARIED EMPLOYEE"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
                 table.addCell(String.valueOf(salariedEmployee.id), new CellStyle(CellStyle.HorizontalAlign.CENTER));
                 table.addCell(String.valueOf(salariedEmployee.name), new CellStyle(CellStyle.HorizontalAlign.CENTER));
@@ -159,7 +155,6 @@ public class StaffManagement {
             }else {
                 HourlySalaryEmployee hourlyEmployee = (HourlySalaryEmployee) staffMember;
 
-
                 table.addCell(("HOURLY SALARY EMPLOYEE"), new CellStyle(CellStyle.HorizontalAlign.CENTER));
                 table.addCell(String.valueOf(hourlyEmployee.id), new CellStyle(CellStyle.HorizontalAlign.CENTER));
                 table.addCell(String.valueOf(hourlyEmployee.name), new CellStyle(CellStyle.HorizontalAlign.CENTER));
@@ -170,18 +165,20 @@ public class StaffManagement {
                 table.addCell(String.valueOf(hourlyEmployee.rate), new CellStyle(CellStyle.HorizontalAlign.CENTER));
                 table.addCell(String.valueOf(hourlyEmployee.pay()), new CellStyle(CellStyle.HorizontalAlign.CENTER));
             }
-
-//            System.out.println(staffMember.);
-
-
-
         });
-
         System.out.println(table.render());
     }
 
 
     static void remove(Scanner scanner) {
+        System.out.print("ENTER (ID) TO REMOVE : ");
+        int id = scanner.nextInt();
 
+        boolean removed = staffList.removeIf(s -> s.id == id);
+        if(removed) {
+            System.out.println("REMOVED SUCCESSFULLY");
+        }else {
+                System.out.println("(ID) NOT FOUND..!!");
+        }
     }
 }
